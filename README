@@ -4,7 +4,11 @@
 ## squashfs-tools
 官网[https://www.squashfs-lzma.org/]
 wget https://www.squashfs-lzma.org/downloads/squashfs4.3.tar.gz
-
+unsquashfs -s filesystem.squashfs
+unsquashfs filesystem.squashfs
+mksquashfs squashfs-root/ 11.squashfs
+mksquashfs squashfs-root/ 11.squashfs -comp gzip -b 1024k -always-use-fragments -no-duplicates
+ 
 ## cdrtools
 官网[http://cdrtools.sourceforge.net/][https://sourceforge.net/projects/cdrtools/files/]
 wget https://sourceforge.net/projects/cdrtools/files/cdrtools-3.01.tar.gz/download
