@@ -1,0 +1,15 @@
+# 打包livecd
+打包livecd
+
+## squashfs-tools
+官网[https://www.squashfs-lzma.org/]
+wget https://www.squashfs-lzma.org/downloads/squashfs4.3.tar.gz
+
+## cdrtools
+官网[http://cdrtools.sourceforge.net/][https://sourceforge.net/projects/cdrtools/files/]
+wget https://sourceforge.net/projects/cdrtools/files/cdrtools-3.01.tar.gz/download
+wget https://sourceforge.net/projects/cdrtools/files/cdrtools-3.01-fix-20151126-mkisofs-isoinfo.patch/download
+
+
+## 打包iso命令
+/opt/schily/bin/mkisofs -iso-level 3 -r -V sblive -cache-inodes -J -l -b isolinux/isolinux.bin -no-emul-boot -boot-load-size 4 -boot-info-table -c isolinux/boot.cat -o sblive.iso sblive
