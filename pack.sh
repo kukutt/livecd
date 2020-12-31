@@ -50,6 +50,7 @@ function mkrootfs(){
 	mkdir -m 755 squashfs-root/run
 	mkdir -m 555 squashfs-root/sys
 	mkdir -m 1777 squashfs-root/tmp
+	cat exfile | xargs -i mkdir -p -m 755 squashfs-root{}
 	$MKSQUASHFS squashfs-root/ ./filesystem.squashfs -comp gzip -b 1024k -always-use-fragments -no-duplicates
 }
 
