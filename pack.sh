@@ -2,6 +2,12 @@
 #
 # author: pan3yao@gmail.com
 #
+function root_need(){
+    if [[ $EUID -ne 0 ]]; then
+        echo "需要root权限" 1>&2
+        exit 1
+    fi
+}
 ret=ok
 # 检查系统工具是否安装
 function isExist(){
@@ -17,12 +23,23 @@ function isExist(){
 [ "ok" != $ret ] && exit;
 
 MKISOTOOL=$PWD/cdrtools/mkisofs/OBJ/x86_64-linux-cc/mkisofs
-function runmain(){
-	[ -d "./isofs" ] && chmod -R 777 ./isofs && rm -rf isofs
+MKSQUASHFS=$PWD/squashfs/squashfs-tools/mksquashfs
+function mkrootfs(){
+	[ -d "./squashfs-root" ] && rm -rf squashfs-root
+	[ -f "./filesystem.squashfs" ] && rm ./filesystem.squashfs
+	mkdir squashfs-root
+	cp -raf squashfs-root-bk/* squashfs-root/
+	$MKSQUASHFS squashfs-root/ ./filesystem.squashfs -comp gzip -b 1024k -always-use-fragments -no-duplicates
+}
+
+function geniso(){
+	[ -d "./isofs" ] && rm -rf isofs
 	[ -f "./test.iso" ] && rm ./test.iso
 	tar -zxf isofs.tgz
 	cp filesystem.squashfs isofs/casper/ 
 	$MKISOTOOL -iso-level 3 -r -V sblive -cache-inodes -J -l -b isolinux/isolinux.bin -no-emul-boot -boot-load-size 4 -boot-info-table -c isolinux/boot.cat -o test.iso isofs
 }
 
-runmain
+root_need
+mkrootfs
+geniso
