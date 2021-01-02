@@ -17,3 +17,8 @@ wget https://sourceforge.net/projects/cdrtools/files/cdrtools-3.01-fix-20151126-
 
 ## 打包iso命令
 /opt/schily/bin/mkisofs -iso-level 3 -r -V sblive -cache-inodes -J -l -b isolinux/isolinux.bin -no-emul-boot -boot-load-size 4 -boot-info-table -c isolinux/boot.cat -o sblive.iso sblive
+
+## syslinux
+git://git.kernel.org/pub/scm/boot/syslinux/syslinux.git
+sudo apt-get install nasm uuid-dev
+sudo apt-get install libc6-dev-i386
