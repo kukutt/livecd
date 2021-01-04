@@ -5,6 +5,8 @@
 if [ n$1 == n"" ];then
 	echo "sudo fdisk /dev/sdX"
 	echo "sudo mkfs.vfat /dev/sdX1"
+	echo "sudo mkfs.ext4 -T largefile /dev/sdX1"
+	echo "sudo mkfs.ntfs -f /dev/sdX1"
 	echo "make sure disk is vfat first!"
 	exit 1
 fi
@@ -12,6 +14,7 @@ fi
 
 TARGETDIR=./aa
 BOOTDIR=$TARGETDIR/EFI/BOOT/
+SRCDIR=./syslinux-6.04-pre1/
 
 # mount
 mkdir -p $TARGETDIR
@@ -20,9 +23,9 @@ mount $1 $TARGETDIR
 # gen syslinux
 mkdir -p $BOOTDIR
 
-find ./syslinux/efi64/ -name *.c32 | xargs -i cp -raf {} $BOOTDIR
-cp -raf ./syslinux/efi64/com32/elflink/ldlinux/ldlinux.e64 $BOOTDIR/
-cp -raf ./syslinux/efi64/efi/syslinux.efi $BOOTDIR/bootx64.efi
+find $SRCDIR/efi64/ -name *.c32 | xargs -i cp -raf {} $BOOTDIR
+cp -raf $SRCDIR/efi64/com32/elflink/ldlinux/ldlinux.e64 $BOOTDIR/
+cp -raf $SRCDIR/efi64/efi/syslinux.efi $BOOTDIR/bootx64.efi
 cp -raf ./isofs/isolinux/isolinux.cfg $BOOTDIR/syslinux.cfg
 
 #cp -raf ./usr/lib/syslinux/efi64/* $BOOTDIR/
