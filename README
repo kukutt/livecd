@@ -22,3 +22,9 @@ wget https://sourceforge.net/projects/cdrtools/files/cdrtools-3.01-fix-20151126-
 git://git.kernel.org/pub/scm/boot/syslinux/syslinux.git
 sudo apt-get install nasm uuid-dev python
 sudo apt-get install libc6-dev-i386
+
+## grub2
+wget https://ftp.gnu.org/gnu/grub/grub-2.04.tar.gz
+git clone https://git.savannah.gnu.org/git/grub.git
+[web size]https://www.gnu.org/software/grub/index.html
+sudo apt-get install bison flex
